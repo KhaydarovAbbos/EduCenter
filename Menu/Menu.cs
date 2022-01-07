@@ -7,7 +7,7 @@ namespace EducationalCenter
     {
         public static void Menu()
         {
-            Console.Title = "Education Center";
+            Console.Title = "Education Center <<>> Abbos Khaydarov";
             Console.ForegroundColor = ConsoleColor.White;
             
             while (true)
