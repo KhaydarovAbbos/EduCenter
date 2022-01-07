@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "Foundation",
+    "Cost": 5000000.0
+  },
+  {
+    "Name": "DotNet",
+    "Cost": 120000000.0
+  },
+  {
+    "Name": "Java",
+    "Cost": 12000000.0
+  },
+  {
+    "Name": "Flutter",
+    "Cost": 12000000.0
+  }
+
+]

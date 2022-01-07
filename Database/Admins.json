@@ -1,0 +1,21 @@
+[
+  {
+    "FirstName": "Abbos",
+    "LastName": "Khaydarov",
+    "Age": 17,
+    "Login": "abbos",
+    "Password": "7488E331B8B64E5794DA3FA4EB10AD5D",
+    "Contact": "998619505",
+    "RoleOfAdmin": 0
+  },
+  {
+    "FirstName": "Main",
+    "LastName": "Admin",
+    "Age": 20,
+    "Login": "admin",
+    "Password": "7488E331B8B64E5794DA3FA4EB10AD5D",
+    "Contact": "999999999",
+    "RoleOfAdmin": 0
+  }
+
+]

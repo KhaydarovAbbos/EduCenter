@@ -1,0 +1,35 @@
+[
+  {
+    "FirstName": "Abbos",
+    "LastName": "Khaydarov",
+    "Age": 17,
+    "Contact": "998619505",
+    "Group": "DotNet",
+    "Balance": 0.0
+  },
+  {
+    "FirstName": "Niyozbek",
+    "LastName": "Mirzayev",
+    "Age": 17,
+    "Contact": "979797979",
+    "Group": "DotNet",
+    "Balance": 0.0
+  },
+  {
+    "FirstName": "Anvar",
+    "LastName": "Abdualiyev",
+    "Age": 22,
+    "Contact": "946931234",
+    "Group": "Foundation",
+    "Balance": 0.0
+  },
+  {
+    "FirstName": "Aziz",
+    "LastName": "Khaydarov",
+    "Age": 21,
+    "Contact": "998566505",
+    "Group": "Java",
+    "Balance": 12000000.0
+  }
+
+]
