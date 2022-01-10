@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Media;
+using System.Threading;
 
 namespace EducationalCenter
 {
     internal class MainMenu
     {
-        public static void Menu()
+        public void Menu()
         {
-            Console.Title = "Education Center <<>> Abbos Khaydarov";
+            Console.Title = "<<< Education Center >>>";
             Console.ForegroundColor = ConsoleColor.White;
             
             while (true)
@@ -29,16 +31,18 @@ namespace EducationalCenter
                     admin.Login = Console.ReadLine();
 
                     Console.Write("Parolingizni kiriting: ");
-                    admin.Password = Adminstration.ReadPassword();
+                    admin.Password = admin.ReadPassword();
 
                     #endregion
                     //checking if login and password exsist
-                    bool result = Adminstration.IsAdmin(admin);
+                    bool result = admin.IsAdmin(admin);
                     if (result == true)
                     {
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("\nLogin va parol tasdiqlandi\n");
+                        SystemSounds.Asterisk.Play();
+                        Thread.Sleep(1000);
                         Console.ForegroundColor = ConsoleColor.White;
                         OnlyAdmin();
                     }
@@ -54,8 +58,9 @@ namespace EducationalCenter
                 }
                 else if (mainChoice == "2")
                 {
+                    Reception reception = new Reception();
                     Console.Clear();
-                    Reception.ShowGroups();
+                    reception.ShowGroups();
                 }
                 else if (mainChoice == "3")
                 {
@@ -73,7 +78,7 @@ namespace EducationalCenter
                 }
             }
         }
-        public static void StudentMenu()
+        public void StudentMenu()
         {
             StudentType student = new StudentType();
             Console.Clear();
@@ -88,14 +93,14 @@ namespace EducationalCenter
                     Console.Clear();
                     Console.Write($"\nO'quvchining telefon raqamini kiritng: ");
                     string Contact = Console.ReadLine();
-                    StudentType.PayForStudy(Contact);
+                    student.PayForStudy(Contact);
                 }
                 else if (StudentChoice == "2")
                 {
                     Console.Clear();
                     Console.Write("O'quvchining telefon raqamini kiriting: ");
                     string Contact = Console.ReadLine();
-                    StudentType.SearchStudent(Contact);
+                    student.SearchStudent(Contact);
                 }
                 else if (StudentChoice == "3")
                 {
@@ -139,7 +144,7 @@ namespace EducationalCenter
                     Console.Clear();
                     Console.Write("\nO'quvchining telefon raqamini kiritng: ");
                     string Contact = Console.ReadLine();
-                    StudentType.DeleteStudent(Contact);
+                    student.DeleteStudent(Contact);
                 }
                 else if (StudentChoice == "6")
                 {
@@ -157,7 +162,7 @@ namespace EducationalCenter
             }
         }
 
-        public static void GroupMenu()
+        public void GroupMenu()
         {
             GroupType group = new GroupType();
             Console.Clear();
@@ -173,14 +178,14 @@ namespace EducationalCenter
                     {
                         #region input data
                         Console.Write("\nKurs nomini kiriting: ");
-                        group.Name = Console.ReadLine();
-                        group.Name = group.Name.Capitalize();
-
+                        string groupName = Console.ReadLine();
+                        groupName = groupName.ToLower();
+                        group.Name = groupName;
                         Console.Write("Kurs narxini kiriting: ");
                         group.Cost = int.Parse(Console.ReadLine());
                        
                         #endregion
-                        GroupType.AddGroup(group);
+                        group.AddGroup(group);
                     }
                     catch
                     {
@@ -200,7 +205,7 @@ namespace EducationalCenter
 
                     Console.Write("Kurs nomini kiriting: ");
                     string GroupName = Console.ReadLine();
-                    GroupType.DeleteGroup(GroupName);
+                    group.DeleteGroup(GroupName);
                 }
                 else if (GroupChoice == "3")
                 {
@@ -217,7 +222,7 @@ namespace EducationalCenter
             }
         }
 
-        public static void AdminMenu()
+        public void AdminMenu()
         {
             Adminstration admin = new Adminstration();
             while (true)
@@ -267,7 +272,7 @@ namespace EducationalCenter
                         Console.Write("Parol yarating: ");
                         admin.Password = Console.ReadLine();
                         #endregion
-                        Adminstration.AddAdmistrator(admin, role);
+                        admin.AddAdmistrator(admin, role);
                     }
                     catch
                     {
@@ -280,12 +285,12 @@ namespace EducationalCenter
                 else if (adminChoice == "2")
                 {
                     Console.Clear();
-                    Adminstration.DeleteAdmin();
+                    admin.DeleteAdmin();
                 }
                 else if (adminChoice == "3")
                 {
                     Console.Clear();
-                    Adminstration.ShowAdmins();
+                    admin.ShowAdmins();
                 }
                 else if (adminChoice == "4")
                 {
@@ -303,7 +308,7 @@ namespace EducationalCenter
             }
         }
 
-        public  static void OnlyAdmin()
+        public void OnlyAdmin()
         {   
             Adminstration admin = new Adminstration();
             while (true)
@@ -336,14 +341,16 @@ namespace EducationalCenter
                     admin.Login = Console.ReadLine();
 
                     Console.Write("Parolingizni kiriting: ");
-                    admin.Password = Adminstration.ReadPassword();
+                    admin.Password = admin.ReadPassword();
                     #endregion 
 
-                    bool result = Adminstration.IsMainAdmin(admin);
+                    bool result = admin.IsMainAdmin(admin);
                     if (result == true)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("\nLogin va Parol tasdiqlandi\n");
+                        SystemSounds.Asterisk.Play();
+                        Thread.Sleep(1000);
                         Console.ForegroundColor = ConsoleColor.White;
                         AdminMenu();
                     }
