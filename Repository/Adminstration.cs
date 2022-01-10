@@ -7,15 +7,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 
 namespace EducationalCenter
 {
-    internal class Adminstration : ModelOfAdminstration, IAdmin
+    internal class Adminstration : ModelOfAdmin, IAdminRepository
     {
         #region IsMainAdmin
-        public static bool IsMainAdmin(Adminstration admin) 
+        public bool IsMainAdmin(Adminstration admin) 
         {
             bool result = false;
 
@@ -41,7 +43,7 @@ namespace EducationalCenter
         #endregion
 
         #region ReadPassword
-        public static string ReadPassword()
+        public string ReadPassword()
         {
             string password = "";
             while (true)
@@ -77,7 +79,7 @@ namespace EducationalCenter
         #endregion
 
         #region IsAdmin
-        public static bool IsAdmin(Adminstration admin)
+        public bool IsAdmin(Adminstration admin)
         {
             bool result  = false;
 
@@ -100,7 +102,7 @@ namespace EducationalCenter
         #endregion
 
         #region AddAdmin
-        public static void AddAdmistrator(Adminstration admin, string role)
+        public void AddAdmistrator(Adminstration admin, string role)
         {
             string json = File.ReadAllText(Constants.AdminsJsonPath);
             IList<Adminstration> AdminstList = JsonConvert.DeserializeObject<List<Adminstration>>(json);
@@ -143,6 +145,8 @@ namespace EducationalCenter
                     //changing color of console text
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\nAdminstrator muaffaqiyatli qo'shildi\n");
+                    SystemSounds.Asterisk.Play();
+                    Thread.Sleep(1000);
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
@@ -157,7 +161,7 @@ namespace EducationalCenter
         #endregion
 
         #region DeleteAdmin
-        public static void DeleteAdmin()
+        public void DeleteAdmin()
         {
             Console.Write("\nO'chirmoqchi bo'lgan adminstratorning telefon raqamini kiriting: ");
             string Contact = Console.ReadLine();
@@ -185,6 +189,8 @@ namespace EducationalCenter
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nAdminstrator muaffaqiyatli o'chirildi\n");
+                SystemSounds.Asterisk.Play();
+                Thread.Sleep(1000);
                 Console.ForegroundColor = ConsoleColor.White;
             }
             else
@@ -198,7 +204,7 @@ namespace EducationalCenter
         #endregion
 
         #region ShowAdmins
-        public static void ShowAdmins()
+        public void ShowAdmins()
         {
             string json = File.ReadAllText(Constants.AdminsJsonPath);
             IList<Adminstration> AdminstList = JsonConvert.DeserializeObject<List<Adminstration>>(json);
@@ -220,7 +226,7 @@ namespace EducationalCenter
         #endregion
 
         #region Hashing
-        public static byte [] HashThePassword(Adminstration admin)
+        public byte [] HashThePassword(Adminstration admin)
         {
 
             //Create a byte array from source data
@@ -243,7 +249,7 @@ namespace EducationalCenter
         #endregion
 
         #region Polymorpism
-        public virtual bool CheckIfAlreadyExist(string path, Adminstration admin)
+        public bool CheckIfAlreadyExist(string path, Adminstration admin)
         {
             string json = File.ReadAllText(Constants.AdminsJsonPath);
             IList<Adminstration> AdminstList = JsonConvert.DeserializeObject<List<Adminstration>>(json);

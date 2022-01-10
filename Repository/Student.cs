@@ -6,10 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Media;
+using System.Threading;
 
 namespace EducationalCenter
 {
-    internal class StudentType : ModelofStudent, IStudent
+    public class StudentType : ModelofStudent, IStudentRepository
     {
         #region AddStudent
         public void AddStudent(StudentType student)
@@ -32,7 +34,8 @@ namespace EducationalCenter
             {
                 student.Balance = 0;
                 
-                string GroupName = Reception.ShowGroupsToNewStudent();
+                Reception reception = new Reception();
+                string GroupName = reception.ShowGroupsToNewStudent();
 
                 StudentList.Add(new StudentType { FirstName = student.FirstName, LastName = student.LastName, Age = student.Age, Balance = student.Balance, Contact = student.Contact, Group = GroupName});
 
@@ -41,6 +44,8 @@ namespace EducationalCenter
                
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nO'quvchi muaffaqiyatli qo'shildi");
+                SystemSounds.Asterisk.Play();
+                Thread.Sleep(1000);
                 Console.ForegroundColor = ConsoleColor.White;
                 
             }
@@ -54,7 +59,7 @@ namespace EducationalCenter
         #endregion
 
         #region DeleteStudent
-        public static bool DeleteStudent(string Contact)
+        public bool DeleteStudent(string Contact)
         {
             bool result = false;
 
@@ -81,6 +86,8 @@ namespace EducationalCenter
 
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\nO'quvchi muaffaqiyatli o'chirildi\n");
+                    SystemSounds.Asterisk.Play();
+                    Thread.Sleep(1000);
                     result = true;
                     Console.ForegroundColor = ConsoleColor.White;
                 }
@@ -160,7 +167,7 @@ namespace EducationalCenter
         #endregion
 
         #region SearchStudent
-        public static void SearchStudent(string Contact)
+        public void SearchStudent(string Contact)
         {
             int succesChecker = 0;
 
@@ -202,7 +209,7 @@ namespace EducationalCenter
         #endregion
 
         #region PayForStudy
-        public static void PayForStudy(string Contact)
+        public void PayForStudy(string Contact)
         {
             string json = File.ReadAllText(Constants.StudentsJsonPath);
             IList<StudentType> StudentList = JsonConvert.DeserializeObject<List<StudentType>>(json);
@@ -273,6 +280,8 @@ namespace EducationalCenter
 
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine($"\nTo'lov muaffaqiyatli amlaga oshirldi, o'quvchida {MustPay} so'm miqdorda qarzdorlik qoldi");
+                                SystemSounds.Asterisk.Play();
+                                Thread.Sleep(1000);
                                 Console.ForegroundColor = ConsoleColor.White;
                                 break;
                             }
@@ -298,7 +307,7 @@ namespace EducationalCenter
         #endregion
 
         #region GroupCost
-        public static decimal SpecifyerOfGroupCost(string NameOfGroup)
+        public decimal SpecifyerOfGroupCost(string NameOfGroup)
         {
             decimal result = 0;
             string json = File.ReadAllText(Constants.GroupsJsonPath);

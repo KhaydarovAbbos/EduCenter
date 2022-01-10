@@ -1,4 +1,5 @@
 ﻿using ConsoleTables;
+using EducationalCenter.IRepository;
 using EducationalCenter.Service;
 using Newtonsoft.Json;
 using System;
@@ -8,11 +9,11 @@ using System.Linq;
 
 namespace EducationalCenter
 {
-    internal static class Reception
+    internal class Reception:IReceptionRepository
     {
 
         #region ShowGroupsToNewStudent
-        public static string ShowGroupsToNewStudent()
+        public string ShowGroupsToNewStudent()
         {
             int succesChecker = 0;
             while (true) {
@@ -25,12 +26,13 @@ namespace EducationalCenter
                 foreach (var item in ress)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine(item.Name);
+                    Console.WriteLine(item.Name.Capitalize());
                     Console.ForegroundColor = ConsoleColor.White;
                 }
 
                 Console.Write("\nKurslardan birini kiriting: ");
                 string choosenGroup = Console.ReadLine();
+                choosenGroup.ToLower();
 
                 foreach (var iteam in ress)
                 {
@@ -54,7 +56,7 @@ namespace EducationalCenter
         #endregion
 
         #region ShowGroups
-        public static void ShowGroups()
+        public void ShowGroups()
         {
             string json = File.ReadAllText(Constants.StudentsJsonPath);
             IList<GroupType> studentsList = JsonConvert.DeserializeObject<List<GroupType>>(json);
@@ -73,7 +75,7 @@ namespace EducationalCenter
             {
                 if (group.Name != "")
                 {
-                    table.AddRow(group.Name, group.Cost);
+                    table.AddRow(group.Name.Capitalize(), group.Cost);
                 }
             }
             Console.ForegroundColor = ConsoleColor.Green;

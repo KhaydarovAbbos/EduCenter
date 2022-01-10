@@ -6,13 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Media;
+using System.Threading;
 
 namespace EducationalCenter
 {
-    internal class GroupType : ModelOfGroup, IGroup
+    internal class GroupType : ModelOfGroup, IGroupRepository
     {
         #region AddGroup
-        public static void AddGroup(GroupType group)
+        public void AddGroup(GroupType group)
         {
             bool result = false;
             string json = File.ReadAllText(Constants.GroupsJsonPath);
@@ -37,6 +39,8 @@ namespace EducationalCenter
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nKurs muaffaqiyatli qo'shildi\n");
+                SystemSounds.Asterisk.Play();
+                Thread.Sleep(1000);
                 Console.ForegroundColor = ConsoleColor.White;
             }
             else
@@ -50,8 +54,9 @@ namespace EducationalCenter
         #endregion
 
         #region DeleteGroup
-        public static void DeleteGroup(string GroupName)
+        public void DeleteGroup(string GroupName)
         {
+            GroupName = GroupName.ToLower();
             bool result = false;
 
             try
